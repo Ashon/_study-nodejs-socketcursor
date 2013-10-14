@@ -47,5 +47,5 @@ io.sockets.on('connection', function(socket){
     socket.on('disconnect', function() { 
         console.log(socket.id + ' disconnected');
         //remove user from db
-    }
+    });
 });
