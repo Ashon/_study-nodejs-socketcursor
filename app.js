@@ -44,4 +44,8 @@ io.sockets.on('connection', function(socket){
 	console.log('all user : ');
 	for(var socketId in io.sockets.sockets)
     	console.log(io.sockets.sockets[socketId].id);
+    socket.on('disconnect', function() { 
+        console.log(socket.id + ' disconnected');
+        //remove user from db
+    }
 });
