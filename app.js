@@ -32,13 +32,6 @@ var cursor = require('./cursor');
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/cursor', function(req, res){
-	var current_date = (new Date()).valueOf().toString();
-	var random = Math.random().toString();
-	var id = crypto.createHash('sha1').update(current_date + random).digest('hex');
-	id = id.substr(id.length - 6);
-
-	cursor.addUser(id);
-	req.session.nickname = id;
 	res.render('cursor', {name : id, user : cursor.users});
 	console.log(id + " connect.");
 	console.log(cursor.users);
@@ -48,6 +41,13 @@ app.get('/cursor', function(req, res){
 // server listen port 3000
 var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function(socket){
+	var current_date = (new Date()).valueOf().toString();
+	var random = Math.random().toString();
+	var id = crypto.createHash('sha1').update(current_date + random).digest('hex');
+	id = id.substr(id.length - 6);
+
+	cursor.addUser(id);
+	res.render('cursor', {name : id, user : cursor.users});
 });
 
 
