@@ -38,8 +38,9 @@ app.get('/cursor', function(req, res){
 	id = id.substr(id.length - 6);
 
 	cursor.addUser(id);
+	req.session.nickname = id;
 	res.render('cursor', {name : id, user : cursor.users});
-	console.log(id + "connect.");
+	console.log(id + " connect.");
 	console.log(cursor.users);
 });
 
