@@ -33,5 +33,7 @@ app.get('/cursor', function(req, res){
 // server listen port 3000
 var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function(socket){
-
+	console.log(socket.id);
+	console.log("hi");
 });
+
