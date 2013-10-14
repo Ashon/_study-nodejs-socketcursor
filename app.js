@@ -36,8 +36,11 @@ app.get('/cursor', function(req, res){
 	var random = Math.random().toString();
 	var id = crypto.createHash('sha1').update(current_date + random).digest('hex');
 	id = id.substr(id.length - 6);
-	console.log(id);
-	res.render('cursor', {name : id});
+
+	cursor.addUser(id);
+	res.render('cursor', {name : id, user : cursor.users});
+	console.log(id + "connect.");
+	console.log(cursor.users);
 });
 
 
@@ -45,4 +48,5 @@ app.get('/cursor', function(req, res){
 var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function(socket){
 });
+
 
