@@ -14,6 +14,8 @@ app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
+app.use(express.cookieparser());
+app.use(express.session({ secret : 'secret key'}));
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,7 +35,5 @@ app.get('/cursor', function(req, res){
 // server listen port 3000
 var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function(socket){
-	console.log(socket.id);
-	console.log("hi");
 });
 
