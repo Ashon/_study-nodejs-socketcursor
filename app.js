@@ -39,6 +39,7 @@ app.get('/cursor', function(req, res){
 // server listen port 3000
 var io = require('socket.io').listen(app.listen(port));
 
+// live log
 io.set('log level', 1);
 
 io.sockets.on('connection', function(socket){
@@ -48,10 +49,7 @@ io.sockets.on('connection', function(socket){
     	console.log(io.sockets.sockets[socketId].id);
 
     socket.on('disconnect', function() { 
-        console.log(socket.id + ' disconnected');
+        console.log(socket.id + ' disconnected.');
         //remove user from db
-		console.log('all user : ');
-        for(var socketId in io.sockets.sockets)
-    		console.log(io.sockets.sockets[socketId].id);
     });
 });
