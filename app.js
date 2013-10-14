@@ -32,7 +32,7 @@ var cursor = require('./cursor');
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/cursor', function(req, res){
-	res.render('cursor');
+	res.render('cursor', {title : 'Hello'});
 });
 
 
@@ -40,13 +40,19 @@ app.get('/cursor', function(req, res){
 var io = require('socket.io').listen(app.listen(port));
 
 // live log
-io.set('log level', 1);
+io.set('log level', 2);
 
 io.sockets.on('connection', function(socket){
 	console.log('connect user : ' + socket.id);
 	console.log('all user : ');
-	for(var socketId in io.sockets.sockets)
+	var users = [];
+	for(var socketId in io.sockets.sockets){
+		users.push(io.sockets.sockets[socketId].id.slice(0,5));
     	console.log(io.sockets.sockets[socketId].id);
+    }
+
+    socket.emit('refreshList', {list : users});
+    socket.broadcast.emit('refreshList', {list : users});
 
     socket.on('disconnect', function() { 
         console.log(socket.id + ' disconnected.');
