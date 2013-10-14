@@ -3,7 +3,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-
+var crypto = require('crypto');
 var app = express();
 
 // all environments
@@ -14,7 +14,7 @@ app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
-app.use(express.cookieparser());
+app.use(express.cookieParser());
 app.use(express.session({ secret : 'secret key'}));
 app.use(express.methodOverride());
 app.use(app.router);
@@ -25,10 +25,19 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+
+//
+var cursor = require('./cursor');
+
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/cursor', function(req, res){
-	res.render('cursor');
+	var current_date = (new Date()).valueOf().toString();
+	var random = Math.random().toString();
+	var id = crypto.createHash('sha1').update(current_date + random).digest('hex');
+	id = id.substr(id.length - 6);
+	console.log(id);
+	res.render('cursor', {name : id});
 });
 
 
