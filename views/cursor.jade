@@ -2,5 +2,5 @@ extends layout
 block content
 	script(type="text/javascript", src="/socket.io/socket.io.js")
 	script(type="text/javascript")
-		var socket = io.connect('http://localhost');
+		var socket = io.connect('http://localhost:3000');
 	|hithere #{name}
