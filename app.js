@@ -39,6 +39,8 @@ app.get('/cursor', function(req, res){
 // server listen port 3000
 var io = require('socket.io').listen(app.listen(port));
 
+io.set('log level', 1);
+
 io.sockets.on('connection', function(socket){
 	console.log('connect user : ' + socket.id);
 	console.log('all user : ');
