@@ -42,20 +42,48 @@ var io = require('socket.io').listen(app.listen(port));
 // live log
 io.set('log level', 2);
 
+
+var heartbeat = 2000;
+var users = [];
+var c;
+
 io.sockets.on('connection', function(socket){
 	console.log('connect user : ' + socket.id);
 	console.log('all user : ');
-	var users = [];
-	for(var socketId in io.sockets.sockets){
-		users.push(io.sockets.sockets[socketId].id.slice(0,5));
-    	console.log(io.sockets.sockets[socketId].id);
+    users = [];
+    for(var socketId in io.sockets.sockets){
+        c = crypto.createHash('sha1').
+                update(io.sockets.sockets[socketId].id).
+                    digest('hex');
+        users.push(c.slice(0,6));
+        console.log(
+            io.sockets.sockets[socketId].id
+            + ' => ' + c);
     }
 
-    socket.emit('refreshList', {list : users});
-    socket.broadcast.emit('refreshList', {list : users});
+    c = crypto.createHash('sha1').
+            update(socket.id).
+                digest('hex');
+    
+    // emit initUser
+    socket.emit('initUser', {
+        list : users,
+        user : c.slice(0, 6),
+        heartbeat : heartbeat
+    });
 
+    socket.on('refreshPoint', function(data){
+        socket.broadcast.emit('updatePoint',{list : ''});
+    });
+
+    // broadcast emit refreshList
+    socket.broadcast.emit('refreshList', users);
+
+    //on disconnect
     socket.on('disconnect', function() { 
         console.log(socket.id + ' disconnected.');
         //remove user from db
+        delete users[socket.username];
+        socket.broadcast.emit('refreshList', users);
     });
 });

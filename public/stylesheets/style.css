@@ -1,8 +1,43 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html{
+	padding:0;
+	background:#000;
 }
-
+body {
+	background:#fff;
+	padding:5px;
+	margin:0;
+	font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+h1{
+	margin:0;
+}
 a {
-  color: #00B7FF;
+	color: #00B7FF;
+}
+.debug{
+	border:1px solid #ddd;
+	padding:10px;
+	margin:10px;
+}
+.heartbeat{
+	display:inline-block;
+	margin-left:5px;
+	width:10px;
+	height:10px;
+	-webkit-transition:all .2s 0 ease;
+}
+.cursor{
+	position:fixed;
+	margin-left:10px;
+	padding-left:10px;
+	width:0;
+	height:10px;
+	font-size:10px;
+	display:none;
+}
+.cursor.my{
+
+}
+.cursor.other{
+	-webkit-transition:all .5s 0 ease;
 }
