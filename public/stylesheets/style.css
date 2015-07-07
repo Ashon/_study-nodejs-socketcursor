@@ -1,6 +1,5 @@
-html{
+html {
 	padding:0;
-	background:#000;
 }
 body {
 	background:#fff;
@@ -8,25 +7,25 @@ body {
 	margin:0;
 	font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-h1{
+h1 {
 	margin:0;
 }
 a {
 	color: #00B7FF;
 }
-.debug{
+.debug {
 	border:1px solid #ddd;
 	padding:10px;
 	margin:10px;
 }
-.heartbeat{
+.heartbeat {
 	display:inline-block;
 	margin-left:5px;
 	width:10px;
 	height:10px;
 	-webkit-transition:all .2s 0 ease;
 }
-.cursor{
+.cursor {
 	position:fixed;
 	margin-left:10px;
 	padding-left:10px;
@@ -35,9 +34,9 @@ a {
 	font-size:10px;
 	display:none;
 }
-.cursor.my{
-
-}
-.cursor.other{
-	-webkit-transition:all .5s 0 ease;
+.cursor.other {
+	-webkit-transition:all .3s ease;
+	   -moz-transition:all .3s ease;
+	     -o-transition:all .3s ease;
+	        transition:all .3s ease;
 }
